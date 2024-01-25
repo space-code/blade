@@ -20,7 +20,7 @@ public struct Page<T: Equatable>: Equatable {
     /// the current page.
     public let hasMoreData: Bool
 
-    // MARK: Initializaiton
+    // MARK: Initialization
 
     /// Creates a `Page` instance.
     ///
