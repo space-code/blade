@@ -7,16 +7,27 @@ let package = Package(
     name: "Blade",
     platforms: [
         .iOS(.v13),
-        .macOS(.v10_15),
+        .macOS(.v11),
         .tvOS(.v13),
         .watchOS(.v7),
         .visionOS(.v1),
     ],
     products: [
         .library(name: "Blade", targets: ["Blade"]),
+        .library(name: "BladeTCA", targets: ["BladeTCA"]),
+    ],
+    dependencies: [
+        .package(url: "https://github.com/pointfreeco/swift-composable-architecture.git", .upToNextMajor(from: "1.5.5")),
     ],
     targets: [
         .target(name: "Blade"),
+        .target(
+            name: "BladeTCA",
+            dependencies: [
+                "Blade",
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+            ]
+        ),
         .testTarget(name: "BladeTests", dependencies: ["Blade"]),
     ]
 )
