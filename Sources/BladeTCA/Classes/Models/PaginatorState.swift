@@ -32,6 +32,6 @@ public struct PaginatorState<State: Equatable & Identifiable>: Equatable {
         self.items = items
         isLoading = false
         hasMoreData = true
-        offset = .zero
+        offset = items.count
     }
 }

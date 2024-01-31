@@ -29,5 +29,12 @@ let package = Package(
             ]
         ),
         .testTarget(name: "BladeTests", dependencies: ["Blade"]),
+        .testTarget(
+            name: "BladeTCATests",
+            dependencies: [
+                "BladeTCA",
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+            ]
+        ),
     ]
 )

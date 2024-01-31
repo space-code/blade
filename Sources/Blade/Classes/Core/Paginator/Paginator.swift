@@ -50,6 +50,17 @@ public actor Paginator<T: Decodable & Equatable> {
         self.limit = limit
         self.pageLoader = pageLoader
     }
+
+    // MARK: Private
+
+    private func loadPage(limit: Int, offset: Int) async throws -> Page<T> {
+        guard !isLoadingInternal else { throw Error.alreadyLoading }
+        isLoadingInternal = true
+        defer { isLoadingInternal = false }
+        return try await pageLoader.loadPage(
+            request: LimitPageRequest(limit: limit, offset: offset)
+        )
+    }
 }
 
 // MARK: IPaginator
@@ -57,17 +68,13 @@ public actor Paginator<T: Decodable & Equatable> {
 extension Paginator: IPaginator {
     public func refresh() async throws -> Page<T> {
         currentPage = firstPage
-        let page = try await pageLoader.loadPage(
-            request: LimitPageRequest(limit: limit, offset: limit * currentPage)
-        )
+        let page = try await loadPage(limit: limit, offset: limit * currentPage)
         currentPage += 1
         return page
     }
 
     public func loadNextPage() async throws -> Page<T> {
-        let page = try await pageLoader.loadPage(
-            request: LimitPageRequest(limit: limit, offset: limit * (currentPage + 1))
-        )
+        let page = try await loadPage(limit: limit, offset: limit * (currentPage + 1))
         currentPage += 1
         return page
     }
