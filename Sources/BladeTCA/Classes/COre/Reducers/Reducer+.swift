@@ -23,7 +23,7 @@ public extension Reducer {
         limit: Int = 20,
         state: WritableKeyPath<State, PaginatorState<ItemState>>,
         action: AnyCasePath<Action, PaginatorAction<ItemState, Never>>,
-        loadPage: @Sendable @escaping (LimitPageRequest, State) async throws -> Page<ItemState>
+        loadPage: @Sendable @escaping (OffsetPaginationRequest, State) async throws -> Page<ItemState>
     ) -> some Reducer<State, Action> {
         PaginatorIntegrationReducer(
             limit: limit,

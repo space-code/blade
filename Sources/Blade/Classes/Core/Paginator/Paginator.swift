@@ -18,15 +18,6 @@ public actor Paginator<T: Decodable & Equatable> {
 
     // MARK: Properties
 
-    /// The page number of the first page in the pagination sequence.
-    private let firstPage: Int
-
-    /// <#Description#>
-    private let limit: Int
-
-    /// The current page number being loaded.
-    private var currentPage: Int
-
     /// Internal flag to track whether the paginator is currently loading data.
     private var isLoadingInternal = false
 
@@ -36,30 +27,43 @@ public actor Paginator<T: Decodable & Equatable> {
         set { isLoadingInternal = newValue }
     }
 
-    private let pageLoader: any IPageLoader<T>
-
     /// An array to store the loaded elements.
-    private(set) var elements: [T] = []
+    public private(set) var elements: [T] = []
+
+    private let paginationStrategy: any IPaginationStrategy<T>
 
     // MARK: Initialization
 
     /// Initializes the Paginator with the provided first page number and paginator service.
-    public init(firstPage: Int = .zero, limit: Int = 20, pageLoader: any IPageLoader<T>) {
-        self.firstPage = firstPage
-        currentPage = firstPage
-        self.limit = limit
-        self.pageLoader = pageLoader
+    public init(
+        configuration: PaginationLimitOffset,
+        offsetPageLoader: any IOffsetPageLoader<T>
+    ) {
+        paginationStrategy = LimitOffsetStrategy(
+            configuration: configuration,
+            pageLoader: offsetPageLoader
+        )
+    }
+
+    public init(
+        configuration: PaginationCursorSeek<T>,
+        cursorPageLoader: any ICursorPageLoader<T>
+    ) where T: Identifiable {
+        paginationStrategy = CursorSeekStrategy(
+            configuration: configuration,
+            pageLoader: cursorPageLoader
+        )
     }
 
     // MARK: Private
 
-    private func loadPage(limit: Int, offset: Int) async throws -> Page<T> {
+    private func perform(_ task: @autoclosure () async throws -> Page<T>) async throws -> Page<T> {
         guard !isLoadingInternal else { throw Error.alreadyLoading }
+
         isLoadingInternal = true
         defer { isLoadingInternal = false }
-        return try await pageLoader.loadPage(
-            request: LimitPageRequest(limit: limit, offset: offset)
-        )
+
+        return try await task()
     }
 }
 
@@ -67,21 +71,28 @@ public actor Paginator<T: Decodable & Equatable> {
 
 extension Paginator: IPaginator {
     public func refresh() async throws -> Page<T> {
-        currentPage = firstPage
-        let page = try await loadPage(limit: limit, offset: limit * currentPage)
-        currentPage += 1
-        return page
+        try await perform(
+            await {
+                let page = try await paginationStrategy.refresh()
+                elements = page.items
+                return page
+            }()
+        )
     }
 
     public func loadNextPage() async throws -> Page<T> {
-        let page = try await loadPage(limit: limit, offset: limit * (currentPage + 1))
-        currentPage += 1
-        return page
+        try await perform(
+            await {
+                let page = try await paginationStrategy.loadNextPage()
+                elements += page.items
+                return page
+            }()
+        )
     }
 
     public func reset() async {
-        currentPage = firstPage
+        await paginationStrategy.reset()
         elements = []
-        isLoading = false
+        isLoadingInternal = false
     }
 }

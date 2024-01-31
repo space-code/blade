@@ -29,7 +29,7 @@ final class PaginatorReducerTests: XCTestCase {
             $0.isLoading = true
         }
 
-        await store.receive(.requestPage(LimitPageRequest(limit: .limit, offset: .limit)))
+        await store.receive(.requestPage(OffsetPaginationRequest(limit: .limit, offset: .limit)))
     }
 
     func test_thatPaginatorDoesNotRequestNextPage_whenLastItemDidNotAppear() async {

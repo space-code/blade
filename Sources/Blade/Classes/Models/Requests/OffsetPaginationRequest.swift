@@ -6,7 +6,7 @@
 import Foundation
 
 /// A struct representing a request for paginated data with specified limits and offsets.
-public struct LimitPageRequest: Equatable {
+public struct OffsetPaginationRequest: Equatable {
     // MARK: Properties
 
     /// The maximum number of items to be included in a page.
@@ -18,7 +18,7 @@ public struct LimitPageRequest: Equatable {
 
     // MARK: Initialization
 
-    /// Creates a ``LimitPageRequest`` instance.
+    /// Creates a ``OffsetPaginationRequest`` instance.
     ///
     /// - Parameters:
     ///   - limit: The maximum number of items to be included in a page.

@@ -54,6 +54,6 @@ struct PaginatorReducer<State: Equatable & Identifiable, Action: Equatable>: Red
         guard !state.isLoading, state.hasMoreData else { return .none }
         state.isLoading = true
 
-        return .send(.requestPage(LimitPageRequest(limit: limit, offset: state.offset)))
+        return .send(.requestPage(OffsetPaginationRequest(limit: limit, offset: state.offset)))
     }
 }

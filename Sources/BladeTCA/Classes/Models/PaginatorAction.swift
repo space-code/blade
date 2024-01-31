@@ -19,7 +19,7 @@ public enum PaginatorAction<State: Equatable & Identifiable, Action: Equatable>:
     case itemAppeared(State.ID)
 
     /// Represents a request to load the next page of items using the provided `LimitPageRequest`.
-    case requestPage(LimitPageRequest)
+    case requestPage(OffsetPaginationRequest)
 
     /// Represents the response to a page request, containing the result of the operation.
     case response(TaskResult<Page<State>>)

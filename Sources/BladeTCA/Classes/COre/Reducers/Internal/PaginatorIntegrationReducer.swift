@@ -17,7 +17,7 @@ struct PaginatorIntegrationReducer<
     let parent: Parent
     let childState: WritableKeyPath<Parent.State, PaginatorState<State>>
     let childAction: AnyCasePath<Parent.Action, PaginatorAction<State, Action>>
-    let loadPage: @Sendable (LimitPageRequest, Parent.State) async throws -> Page<State>
+    let loadPage: @Sendable (OffsetPaginationRequest, Parent.State) async throws -> Page<State>
 
     private enum CancelID { case requestPage }
 

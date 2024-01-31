@@ -6,18 +6,18 @@
 import Blade
 import XCTest
 
-// MARK: - PaginatorTests
+// MARK: - OffsetPaginatorTests
 
-final class PaginatorTests: XCTestCase {
+final class OffsetPaginatorTests: XCTestCase {
     // MARK: Properties
 
-    private var pageLoaderMock: PageLoaderMock<TestItem>!
+    private var pageLoaderMock: OffsetPageLoaderMock<TestItem>!
 
     // MARK: XCTestCase
 
     override func setUp() {
         super.setUp()
-        pageLoaderMock = PageLoaderMock()
+        pageLoaderMock = OffsetPageLoaderMock()
     }
 
     override func tearDown() {
@@ -45,6 +45,9 @@ final class PaginatorTests: XCTestCase {
         request = try XCTUnwrap(pageLoaderMock.invokedLoadPageParametersList[1].request)
         XCTAssertEqual(request.offset, 2 * .limit)
         XCTAssertEqual(request.limit, .limit)
+
+//        let count = await sut.elements.count
+//        XCTAssertEqual(count, 2 * .limit)
     }
 
     func test_thatPaginatorRefreshesState() async throws {
@@ -83,9 +86,8 @@ final class PaginatorTests: XCTestCase {
 
     private func prepareSut(firstPage: Int = .zero, limit: Int = .limit) -> Paginator<TestItem> {
         Paginator<TestItem>(
-            firstPage: firstPage,
-            limit: limit,
-            pageLoader: pageLoaderMock
+            configuration: .init(firstPage: firstPage, limit: limit),
+            offsetPageLoader: pageLoaderMock
         )
     }
 }

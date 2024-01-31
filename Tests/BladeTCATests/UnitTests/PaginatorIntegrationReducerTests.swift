@@ -37,7 +37,7 @@ final class PaginatorIntegrationReducerTests: XCTestCase {
         }
 
         // 2. Send a request
-        await store.receive(.child(.requestPage(LimitPageRequest(limit: .limit, offset: .limit))))
+        await store.receive(.child(.requestPage(OffsetPaginationRequest(limit: .limit, offset: .limit))))
 
         // 3. Receive a response
         await store.receive(.child(.response(.success(pageResponse)))) {
@@ -67,7 +67,7 @@ final class PaginatorIntegrationReducerTests: XCTestCase {
             $0.paginator.isLoading = true
         }
 
-        await store.receive(.child(.requestPage(LimitPageRequest(limit: .limit, offset: .limit))))
+        await store.receive(.child(.requestPage(OffsetPaginationRequest(limit: .limit, offset: .limit))))
         await store.receive(.child(.response(.failure(URLError(.unknown))))) {
             $0.paginator.isLoading = false
             $0.paginator.hasMoreData = true

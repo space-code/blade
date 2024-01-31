@@ -5,14 +5,14 @@
 
 import Blade
 
-final class PageLoaderMock<T: Equatable & Decodable>: IPageLoader {
+final class OffsetPageLoaderMock<T: Equatable & Decodable>: IOffsetPageLoader {
     var invokedLoadPage = false
     var invokedLoadPageCount = 0
-    var invokedLoadPageParameters: (request: LimitPageRequest, Void)?
-    var invokedLoadPageParametersList = [(request: LimitPageRequest, Void)]()
+    var invokedLoadPageParameters: (request: OffsetPaginationRequest, Void)?
+    var invokedLoadPageParametersList = [(request: OffsetPaginationRequest, Void)]()
     var stubbedLoadPage: Page<T>!
 
-    func loadPage(request: LimitPageRequest) async throws -> Page<T> {
+    func loadPage(request: OffsetPaginationRequest) async throws -> Page<T> {
         invokedLoadPage = true
         invokedLoadPageCount += 1
         invokedLoadPageParameters = (request, ())
