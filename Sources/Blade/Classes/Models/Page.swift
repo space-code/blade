@@ -12,10 +12,6 @@ public struct Page<T: Equatable>: Equatable {
     /// An array of items of generic type T contained in the current page.
     public let items: [T]
 
-    /// The offset indicating the position of the first item in the current page
-    /// relative to the entire collection.
-    public let offset: Int
-
     /// A boolean flag indicating whether there are more data available beyond
     /// the current page.
     public let hasMoreData: Bool
@@ -26,11 +22,9 @@ public struct Page<T: Equatable>: Equatable {
     ///
     /// - Parameters:
     ///   - items: An array of items of generic type T contained in the current page.
-    ///   - offset: The offset indicating the position of the first item in the current page relative to the entire collection.
     ///   - hasMoreData: A boolean flag indicating whether there are more data available beyond the current page.
-    public init(items: [T], offset: Int, hasMoreData: Bool) {
+    public init(items: [T], hasMoreData: Bool) {
         self.items = items
-        self.offset = offset
         self.hasMoreData = hasMoreData
     }
 }
