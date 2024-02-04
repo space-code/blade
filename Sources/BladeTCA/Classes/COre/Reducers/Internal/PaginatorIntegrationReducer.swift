@@ -9,15 +9,18 @@ import ComposableArchitecture
 struct PaginatorIntegrationReducer<
     Parent: Reducer,
     State: Equatable & Identifiable,
-    Action: Equatable
+    Action: Equatable,
+    PositionType: Equatable,
+    Request: Equatable
 >: Reducer {
     // MARK: Properties
 
-    let limit: Int
     let parent: Parent
-    let childState: WritableKeyPath<Parent.State, PaginatorState<State>>
-    let childAction: AnyCasePath<Parent.Action, PaginatorAction<State, Action>>
-    let loadPage: @Sendable (OffsetPaginationRequest, Parent.State) async throws -> Page<State>
+    let childState: WritableKeyPath<Parent.State, PaginatorState<State, PositionType>>
+    let childAction: AnyCasePath<Parent.Action, PaginatorAction<State, Action, Request>>
+    let loadPage: @Sendable (Request, Parent.State) async throws -> Page<State>
+    let requestBuilderStrategy: any IRequestBuilderStrategy<PaginatorState<State, PositionType>, Request>
+    let positionBuilderStrategy: any IPositionBuilderStrategy<PaginatorState<State, PositionType>, PositionType>
 
     private enum CancelID { case requestPage }
 
@@ -25,7 +28,10 @@ struct PaginatorIntegrationReducer<
 
     var body: some Reducer<Parent.State, Parent.Action> {
         Scope(state: childState, action: childAction) {
-            PaginatorReducer(limit: limit)
+            PaginatorReducer(
+                requestBuilder: requestBuilderStrategy,
+                positionBuilder: positionBuilderStrategy
+            )
         }
 
         Reduce { state, action in

@@ -16,18 +16,19 @@ final class PaginatorIntegrationReducerTests: XCTestCase {
 
     func test_thatPaginatorUpdatesData_whenRequestDidCompleteSuccessfully() async {
         let items: IdentifiedArray<UUID, TestItem> = .items(count: .limit)
-        let pageResponse = Page<TestItem>(items: items.elements, offset: .limit, hasMoreData: true)
+        let pageResponse = Page<TestItem>(items: items.elements, hasMoreData: true)
 
         let store = TestStore(
-            initialState: PaginatorIntegrationReducer<TestReducer, TestItem, Never>
-                .State(paginator: .init(items: items))
+            initialState: PaginatorIntegrationReducer<TestReducer, TestItem, Never, Int, OffsetPaginationRequest>
+                .State(paginator: .init(items: items, position: .limit))
         ) {
             PaginatorIntegrationReducer(
-                limit: .limit,
                 parent: TestReducer(),
                 childState: \TestReducer.State.paginator,
                 childAction: /TestReducer.Action.child,
-                loadPage: { _, _ in pageResponse }
+                loadPage: { _, _ in pageResponse },
+                requestBuilderStrategy: OffsetRequestBuilderStrategy(limit: .limit),
+                positionBuilderStrategy: OffsetPositionBuilderStrategy()
             )
         }
 
@@ -43,7 +44,7 @@ final class PaginatorIntegrationReducerTests: XCTestCase {
         await store.receive(.child(.response(.success(pageResponse)))) {
             $0.paginator.isLoading = false
             $0.paginator.hasMoreData = true
-            $0.paginator.offset = .limit
+            $0.paginator.position = .limit
         }
     }
 
@@ -51,15 +52,16 @@ final class PaginatorIntegrationReducerTests: XCTestCase {
         let items: IdentifiedArray<UUID, TestItem> = .items(count: .limit)
 
         let store = TestStore(
-            initialState: PaginatorIntegrationReducer<TestReducer, TestItem, Never>
-                .State(paginator: .init(items: items))
+            initialState: PaginatorIntegrationReducer<TestReducer, TestItem, Never, Int, OffsetPaginationRequest>
+                .State(paginator: .init(items: items, position: .limit))
         ) {
             PaginatorIntegrationReducer(
-                limit: .limit,
                 parent: TestReducer(),
                 childState: \TestReducer.State.paginator,
                 childAction: /TestReducer.Action.child,
-                loadPage: { _, _ in throw URLError(.unknown) }
+                loadPage: { _, _ in throw URLError(.unknown) },
+                requestBuilderStrategy: OffsetRequestBuilderStrategy(limit: .limit),
+                positionBuilderStrategy: OffsetPositionBuilderStrategy()
             )
         }
 
@@ -81,11 +83,11 @@ private extension PaginatorIntegrationReducerTests {
     @Reducer
     struct TestReducer {
         struct State: Equatable {
-            var paginator: PaginatorState<TestItem>
+            var paginator: PaginatorState<TestItem, Int>
         }
 
         enum Action: Equatable {
-            case child(BladeTCA.PaginatorAction<TestItem, Never>)
+            case child(BladeTCA.PaginatorAction<TestItem, Never, OffsetPaginationRequest>)
         }
 
         var body: some ReducerOf<Self> {

@@ -5,6 +5,8 @@
 
 import Foundation
 
+// MARK: - TestItem
+
 struct TestItem: Equatable, Identifiable {
     // MARK: Properties
 
@@ -14,5 +16,13 @@ struct TestItem: Equatable, Identifiable {
 
     init(id: UUID = UUID()) {
         self.id = id
+    }
+}
+
+// MARK: - UUID + Identifiable
+
+extension UUID: Identifiable {
+    public var id: Self {
+        self
     }
 }

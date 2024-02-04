@@ -4,10 +4,9 @@
 //
 
 import ComposableArchitecture
-import Foundation
 
 /// Represents the state of a paginator for cursor-based pagination.
-public struct PaginatorState<State: Equatable & Identifiable>: Equatable {
+public struct CursorPaginatorState<State: Equatable & Identifiable>: Equatable, IPaginatorState {
     // MARK: Properties
 
     /// The array of identifiable items managed by the paginator.
@@ -17,7 +16,7 @@ public struct PaginatorState<State: Equatable & Identifiable>: Equatable {
     var isLoading: Bool
 
     /// The offset or position in the data set from where the paginator should load more items.
-    var offset: Int
+    var id: State.ID
 
     /// A Boolean value indicating whether there is more data available to be loaded.
     var hasMoreData: Bool
@@ -28,10 +27,10 @@ public struct PaginatorState<State: Equatable & Identifiable>: Equatable {
     ///
     /// - Parameters:
     ///   - items: The array of identifiable items to be managed by the paginator.
-    public init(items: IdentifiedArrayOf<State>) {
+    public init(items: IdentifiedArrayOf<State>, id: State.ID) {
         self.items = items
         isLoading = false
         hasMoreData = true
-        offset = items.count
+        self.id = id
     }
 }

@@ -9,4 +9,10 @@ public struct CursorPaginationRequest<T: Identifiable>: Equatable {
     // MARK: Properties
 
     public let id: T.ID
+
+    // MARK: Initialization
+
+    public init(id: T.ID) {
+        self.id = id
+    }
 }

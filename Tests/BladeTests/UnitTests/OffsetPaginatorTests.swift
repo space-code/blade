@@ -99,10 +99,9 @@ private extension Int {
 }
 
 private extension Page where T == TestItem {
-    static func fake(numberOfItems: Int = 1, offset: Int = .zero, hasMoreData: Bool = true) -> Page<TestItem> {
+    static func fake(numberOfItems: Int = 1, hasMoreData: Bool = true) -> Page<TestItem> {
         Page(
             items: Array(0 ..< numberOfItems).map { _ in TestItem(id: UUID()) },
-            offset: offset,
             hasMoreData: hasMoreData
         )
     }

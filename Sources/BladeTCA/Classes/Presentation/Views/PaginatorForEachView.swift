@@ -6,14 +6,24 @@
 import ComposableArchitecture
 import SwiftUI
 
-public struct PaginatorForEachView<State: Equatable & Identifiable, Action: Equatable, Body: View>: View {
+public struct PaginatorForEachView<
+    State: Equatable & Identifiable,
+    Action: Equatable,
+    Body: View,
+    PositionType: Equatable,
+    Request: Equatable
+>: View {
+    // MARK: Types
+
+    private typealias StoreType = ViewStoreOf<PaginatorReducer<State, Action, PositionType, Request>>
+
     // MARK: Properties
 
-    public let store: Store<PaginatorState<State>, PaginatorAction<State, Action>>
+    public let store: Store<PaginatorState<State, PositionType>, PaginatorAction<State, Action, Request>>
     public let content: (State) -> Body
 
     public init(
-        store: Store<PaginatorState<State>, PaginatorAction<State, Action>>,
+        store: Store<PaginatorState<State, PositionType>, PaginatorAction<State, Action, Request>>,
         content: @escaping (State) -> Body
     ) {
         self.store = store
@@ -23,7 +33,7 @@ public struct PaginatorForEachView<State: Equatable & Identifiable, Action: Equa
     // MARK: View
 
     public var body: some View {
-        WithViewStore(store, observe: { $0 }) { (viewStore: ViewStoreOf<PaginatorReducer<State, Action>>) in
+        WithViewStore(store, observe: { $0 }) { (viewStore: StoreType) in
             ForEach(viewStore.items) { item in
                 content(item)
                     .onAppear {

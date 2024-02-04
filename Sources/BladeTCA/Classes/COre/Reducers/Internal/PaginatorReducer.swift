@@ -6,20 +6,30 @@
 import Blade
 import ComposableArchitecture
 
-struct PaginatorReducer<State: Equatable & Identifiable, Action: Equatable>: Reducer {
+struct PaginatorReducer<
+    State: Equatable & Identifiable,
+    Action: Equatable,
+    PositionType: Equatable,
+    Request: Equatable
+>: Reducer {
     // MARK: Types
 
-    typealias State = PaginatorState<State>
-    typealias Action = PaginatorAction<State, Action>
+    typealias State = PaginatorState<State, PositionType>
+    typealias Action = PaginatorAction<State, Action, Request>
 
     // MARK: Properties
 
-    private let limit: Int
+    private let requestBuilder: any IRequestBuilderStrategy<Self.State, Request>
+    private let positionBuilder: any IPositionBuilderStrategy<Self.State, PositionType>
 
     // MARK: Initialization
 
-    init(limit: Int) {
-        self.limit = limit
+    init(
+        requestBuilder: any IRequestBuilderStrategy<Self.State, Request>,
+        positionBuilder: any IPositionBuilderStrategy<Self.State, PositionType>
+    ) {
+        self.requestBuilder = requestBuilder
+        self.positionBuilder = positionBuilder
     }
 
     // MARK: Reducer
@@ -38,7 +48,8 @@ struct PaginatorReducer<State: Equatable & Identifiable, Action: Equatable>: Red
 
                 state.items.append(contentsOf: page.items)
                 state.hasMoreData = page.hasMoreData
-                state.offset = page.offset
+
+                state.position = positionBuilder.next(state: state)
 
                 return .none
             case .response(.failure):
@@ -54,6 +65,7 @@ struct PaginatorReducer<State: Equatable & Identifiable, Action: Equatable>: Red
         guard !state.isLoading, state.hasMoreData else { return .none }
         state.isLoading = true
 
-        return .send(.requestPage(OffsetPaginationRequest(limit: limit, offset: state.offset)))
+        let request: Request = requestBuilder.makeRequest(state: state)
+        return .send(.requestPage(request))
     }
 }
