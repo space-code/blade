@@ -128,7 +128,6 @@ struct SomeFeature {
 // MARK: View
 
 import ComposableArchitecture
-import DesignKit
 import SwiftUI
 
 // MARK: - SomeView
