@@ -1,0 +1,44 @@
+{
+  "configurations" : [
+    {
+      "id" : "9BC7C122-0678-48E3-A9A8-0D03B540050E",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : {
+      "targets" : [
+        {
+          "containerPath" : "container:",
+          "identifier" : "Blade",
+          "name" : "Blade"
+        },
+        {
+          "containerPath" : "container:",
+          "identifier" : "BladeTCA",
+          "name" : "BladeTCA"
+        }
+      ]
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "BladeTCATests",
+        "name" : "BladeTCATests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "BladeTests",
+        "name" : "BladeTests"
+      }
+    }
+  ],
+  "version" : 1
+}

@@ -1,4 +1,4 @@
-// swift-tools-version: 5.9
+// swift-tools-version: 5.7
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -10,7 +10,6 @@ let package = Package(
         .macOS(.v11),
         .tvOS(.v13),
         .watchOS(.v7),
-        .visionOS(.v1),
     ],
     products: [
         .library(name: "Blade", targets: ["Blade"]),
@@ -29,12 +28,5 @@ let package = Package(
             ]
         ),
         .testTarget(name: "BladeTests", dependencies: ["Blade"]),
-        .testTarget(
-            name: "BladeTCATests",
-            dependencies: [
-                "BladeTCA",
-                .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
-            ]
-        ),
     ]
 )
