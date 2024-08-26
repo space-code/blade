@@ -13,7 +13,7 @@ struct LoadingViewModifier: ViewModifier {
     // MARK: ViewModifier
 
     func body(content: Content) -> some View {
-        VStack {
+        Group {
             content
 
             if isLoading {
