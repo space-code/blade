@@ -8,8 +8,10 @@ import Foundation
 
 // MARK: - OffsetPaginatorState
 
+// TODO: Remove `@unchecked Sendable`
+
 /// Represents the state of a paginator for cursor-based pagination.
-public struct PaginatorState<State: Equatable & Identifiable, T: Equatable>: Equatable, IPaginatorState {
+public struct PaginatorState<State: Equatable & Identifiable, T: Equatable>: Equatable, IPaginatorState, @unchecked Sendable {
     // MARK: Properties
 
     /// The array of identifiable items managed by the paginator.

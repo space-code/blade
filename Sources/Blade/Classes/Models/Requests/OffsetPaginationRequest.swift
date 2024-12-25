@@ -6,7 +6,7 @@
 import Foundation
 
 /// A struct representing a request for paginated data with specified limits and offsets.
-public struct OffsetPaginationRequest: Equatable {
+public struct OffsetPaginationRequest: Equatable, Sendable {
     // MARK: Properties
 
     /// The maximum number of items to be included in a page.

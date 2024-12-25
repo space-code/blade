@@ -6,7 +6,7 @@
 import Foundation
 
 /// A generic struct representing a paginated collection of items.
-public struct Page<T: Equatable>: Equatable {
+public struct Page<T: Equatable>: Equatable, @unchecked Sendable {
     // MARK: Properties
 
     /// An array of items of generic type T contained in the current page.

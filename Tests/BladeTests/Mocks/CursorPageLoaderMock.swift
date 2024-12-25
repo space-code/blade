@@ -5,7 +5,7 @@
 
 import Blade
 
-final class CursorPageLoaderMock<T: Equatable & Decodable & Identifiable>: ICursorPageLoader {
+final class CursorPageLoaderMock<T: Equatable & Decodable & Identifiable>: ICursorPageLoader, @unchecked Sendable {
     var invokedLoadPage = false
     var invokedLoadPageCount = 0
     var invokedLoadPageParameters: (request: CursorPaginationRequest<T>, Void)?

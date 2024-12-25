@@ -7,7 +7,7 @@ import Foundation
 
 // MARK: - TestItem
 
-struct TestItem: Equatable, Identifiable {
+struct TestItem: Equatable, Identifiable, Sendable {
     // MARK: Properties
 
     let id: UUID

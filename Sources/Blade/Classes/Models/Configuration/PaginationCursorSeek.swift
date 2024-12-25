@@ -5,7 +5,7 @@
 
 import Foundation
 
-public struct PaginationCursorSeek<T: Identifiable> {
+public struct PaginationCursorSeek<T: Identifiable>: @unchecked Sendable {
     // MARK: Properties
 
     public let id: T.ID

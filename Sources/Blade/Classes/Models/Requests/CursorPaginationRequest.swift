@@ -5,7 +5,7 @@
 
 import Foundation
 
-public struct CursorPaginationRequest<T: Identifiable>: Equatable {
+public struct CursorPaginationRequest<T: Identifiable>: Equatable, @unchecked Sendable {
     // MARK: Properties
 
     public let id: T.ID

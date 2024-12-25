@@ -12,7 +12,7 @@ struct PaginatorIntegrationReducer<
     Action: Equatable,
     PositionType: Equatable,
     Request: Equatable
->: Reducer {
+>: Reducer, @unchecked Sendable where Parent.State: Sendable, Request: Sendable {
     // MARK: Properties
 
     let parent: Parent

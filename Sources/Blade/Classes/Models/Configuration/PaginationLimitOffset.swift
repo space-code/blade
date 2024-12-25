@@ -5,7 +5,7 @@
 
 import Foundation
 
-public struct PaginationLimitOffset {
+public struct PaginationLimitOffset: Sendable {
     // MARK: Properties
 
     public let firstPage: Int
