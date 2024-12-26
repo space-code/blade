@@ -5,7 +5,7 @@
 
 import Blade
 
-final class OffsetPageLoaderMock<T: Equatable & Decodable>: IOffsetPageLoader {
+final class OffsetPageLoaderMock<T: Equatable & Decodable>: IOffsetPageLoader, @unchecked Sendable {
     var invokedLoadPage = false
     var invokedLoadPageCount = 0
     var invokedLoadPageParameters: (request: OffsetPaginationRequest, Void)?

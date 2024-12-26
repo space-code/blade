@@ -81,8 +81,8 @@ final class PaginatorIntegrationReducerTests: XCTestCase {
 
 private extension PaginatorIntegrationReducerTests {
     @Reducer
-    struct TestReducer {
-        struct State: Equatable {
+    struct TestReducer: Sendable {
+        struct State: Equatable, Sendable {
             var paginator: PaginatorState<TestItem, Int>
         }
 

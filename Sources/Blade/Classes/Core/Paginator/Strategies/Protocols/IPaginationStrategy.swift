@@ -5,4 +5,4 @@
 
 import Foundation
 
-protocol IPaginationStrategy<Element>: IPaginator where Element: Decodable & Equatable {}
+protocol IPaginationStrategy<Element>: IPaginator, Sendable where Element: Decodable & Equatable {}

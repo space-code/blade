@@ -7,7 +7,7 @@ import Foundation
 
 // MARK: - LimitOffsetStrategy
 
-actor LimitOffsetStrategy<Element: Decodable & Equatable> {
+actor LimitOffsetStrategy<Element: Decodable & Equatable>: Sendable {
     // MARK: Properties
 
     private let configuration: PaginationLimitOffset

@@ -5,7 +5,7 @@
 
 import Foundation
 
-public protocol IOffsetPageLoader<Element> {
+public protocol IOffsetPageLoader<Element>: Sendable {
     /// The type of elements the paginator is handling, which must conform to `Decodable` & `Equatable`.
     associatedtype Element: Decodable & Equatable
 

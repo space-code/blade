@@ -9,7 +9,7 @@ import ComposableArchitecture
 // MARK: - Reducer Extension for Paginator Integration
 
 /// An extension on the `Reducer` type providing a method for integrating a paginator into a Composable Architecture.
-public extension Reducer {
+public extension Reducer where State: Sendable {
     /// Integrates a paginator into a Composable Architecture, facilitating paginated data loading.
     ///
     /// - Parameters:
