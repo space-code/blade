@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+
+#### Added
+- Bump the Swift version to 6.0.
+  - Added in Pull Request [#6](https://github.com/space-code/blade/pull/6).
+
 #### 1.x Releases
 - `1.0.x` Releases - [1.0.0](#100) | [1.1.0](#110)
 
