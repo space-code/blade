@@ -37,19 +37,23 @@ jobs:
           - xcode: "Xcode_16.0"
             runsOn: macOS-14
             name: "macOS 14, Xcode 16.0, Swift 6.0"
+            params: "-skipMacroValidation"
           - xcode: "Xcode_15.4"
             runsOn: macOS-14
             name: "macOS 14, Xcode 15.4, Swift 5.10"
+            params: "-skipMacroValidation"
           - xcode: "Xcode_15.0"
             runsOn: macos-13
             name: "macOS 13, Xcode 15.0, Swift 5.9.0"
+            params: "-skipMacroValidation"
           - xcode: "Xcode_14.3.1"
             runsOn: macos-13
             name: "macOS 13, Xcode 14.3.1, Swift 5.8.0"
+            params: ""
     steps:
       - uses: actions/checkout@v3
       - name: ${{ matrix.name }}
-        run: xcodebuild test -scheme "Blade-Package" -destination "platform=macOS" clean -enableCodeCoverage YES -resultBundlePath "test_output/${{ matrix.name }}.xcresult" || exit 1
+        run: xcodebuild test -scheme "Blade-Package" -destination "platform=macOS" clean -enableCodeCoverage YES ${{ matrix.params }} -resultBundlePath "test_output/${{ matrix.name }}.xcresult" || exit 1
       - name: Upload test coverage reports to Codecov
         uses: space-code/oss-common-actions/.github/actions/upload_test_coverage_report@main
         with:
@@ -71,26 +75,31 @@ jobs:
             name: "iOS 18.1"
             xcode: "Xcode_16.1"
             runsOn: macOS-14
+            params: "-skipMacroValidation"
           - destination: "OS=18.0,name=iPhone 16 Pro"
             name: "iOS 18.0"
             xcode: "Xcode_16.0"
             runsOn: macOS-14
+            params: "-skipMacroValidation"
           - destination: "OS=17.5,name=iPhone 15 Pro"
             name: "iOS 17.5"
             xcode: "Xcode_15.4"
             runsOn: macOS-14
+            params: "-skipMacroValidation"
           - destination: "OS=17.0.1,name=iPhone 14 Pro"
             name: "iOS 17.0.1"
             xcode: "Xcode_15.0"
             runsOn: macos-13
+            params: "-skipMacroValidation"
           - destination: "OS=16.4,name=iPhone 14 Pro"
             name: "iOS 16.4"
             xcode: "Xcode_14.3.1"
             runsOn: macos-13
+            params: ""
     steps:
       - uses: actions/checkout@v3
       - name: ${{ matrix.name }}
-        run: xcodebuild test -scheme "Blade-Package" -destination "${{ matrix.destination }}" clean -enableCodeCoverage YES -resultBundlePath "test_output/${{ matrix.name }}.xcresult" || exit 1
+        run: xcodebuild test -scheme "Blade-Package" -destination "${{ matrix.destination }}" clean -enableCodeCoverage YES ${{ matrix.params }} -resultBundlePath "test_output/${{ matrix.name }}.xcresult" || exit 1
       - name: Upload test coverage reports to Codecov
         uses: space-code/oss-common-actions/.github/actions/upload_test_coverage_report@main
         with:
@@ -112,26 +121,31 @@ jobs:
             name: "tvOS 18.1"
             xcode: "Xcode_16.1"
             runsOn: macOS-14
+            params: "-skipMacroValidation"
           - destination: "OS=18.0,name=Apple TV"
             name: "tvOS 18.0"
             xcode: "Xcode_16.0"
             runsOn: macOS-14
+            params: "-skipMacroValidation"
           - destination: "OS=17.5,name=Apple TV"
             name: "tvOS 17.5"
             xcode: "Xcode_15.4"
             runsOn: macOS-14
+            params: "-skipMacroValidation"
           - destination: "OS=17.0,name=Apple TV"
             name: "tvOS 17.0"
             xcode: "Xcode_15.0"
             runsOn: macos-13
+            params: "-skipMacroValidation"
           - destination: "OS=16.4,name=Apple TV"
             name: "tvOS 16.4"
             xcode: "Xcode_14.3.1"
             runsOn: macos-13
+            params: ""
     steps:
       - uses: actions/checkout@v3
       - name: ${{ matrix.name }}
-        run: xcodebuild test -scheme "Blade-Package" -destination "${{ matrix.destination }}" clean -enableCodeCoverage YES -resultBundlePath "test_output/${{ matrix.name }}.xcresult" || exit 1
+        run: xcodebuild test -scheme "Blade-Package" -destination "${{ matrix.destination }}" clean -enableCodeCoverage YES ${{ matrix.params }} -resultBundlePath "test_output/${{ matrix.name }}.xcresult" || exit 1
       - name: Upload test coverage reports to Codecov
         uses: space-code/oss-common-actions/.github/actions/upload_test_coverage_report@main
         with:
@@ -153,26 +167,31 @@ jobs:
             name: "watchOS 11.1"
             xcode: "Xcode_16.1"
             runsOn: macOS-14
+            params: "-skipMacroValidation"
           - destination: "OS=11.0,name=Apple Watch Series 10 (46mm)"
             name: "watchOS 11.0"
             xcode: "Xcode_16.0"
             runsOn: macOS-14
+            params: "-skipMacroValidation"
           - destination: "OS=10.5,name=Apple Watch Series 9 (45mm)"
             name: "watchOS 10.5"
             xcode: "Xcode_15.4"
             runsOn: macOS-14
+            params: "-skipMacroValidation"
           - destination: "OS=10.0,name=Apple Watch Series 9 (45mm)"
             name: "watchOS 10.0"
             xcode: "Xcode_15.0"
             runsOn: macos-13
+            params: "-skipMacroValidation"
           - destination: "OS=9.4,name=Apple Watch Series 8 (45mm)"
             name: "watchOS 9.4"
             xcode: "Xcode_14.3.1"
             runsOn: macos-13
+            params: ""
     steps:
       - uses: actions/checkout@v3
       - name: ${{ matrix.name }}
-        run: xcodebuild test -scheme "Blade-Package" -destination "${{ matrix.destination }}" clean -enableCodeCoverage YES -resultBundlePath "test_output/${{ matrix.name }}.xcresult" || exit 1
+        run: xcodebuild test -scheme "Blade-Package" -destination "${{ matrix.destination }}" clean -enableCodeCoverage YES ${{ matrix.params }} -resultBundlePath "test_output/${{ matrix.name }}.xcresult" || exit 1
       - name: Upload test coverage reports to Codecov
         uses: space-code/oss-common-actions/.github/actions/upload_test_coverage_report@main
         with:
