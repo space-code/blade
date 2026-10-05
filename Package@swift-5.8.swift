@@ -6,10 +6,10 @@ import PackageDescription
 let package = Package(
     name: "Blade",
     platforms: [
-        .iOS(.v13),
-        .macOS(.v11),
-        .tvOS(.v13),
-        .watchOS(.v7),
+        .iOS(.v16),
+        .macOS(.v13),
+        .tvOS(.v16),
+        .watchOS(.v9),
     ],
     products: [
         .library(name: "Blade", targets: ["Blade"]),
