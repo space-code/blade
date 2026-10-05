@@ -47,7 +47,7 @@ jobs:
       - name: ${{ matrix.name }}
         run: xcodebuild test -scheme "Blade-Package" -destination "platform=macOS" clean -enableCodeCoverage YES ${{ matrix.params }} -resultBundlePath "test_output/${{ matrix.name }}.xcresult" || exit 1
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.5.0
+        uses: codecov/codecov-action@v4.6.0
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           xcode: true
@@ -109,7 +109,7 @@ jobs:
       - name: ${{ matrix.name }}
         run: xcodebuild test -scheme "Blade-Package" -destination "${{ matrix.destination }}" clean -enableCodeCoverage YES ${{ matrix.params }} -resultBundlePath "test_output/${{ matrix.name }}.xcresult" || exit 1
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.5.0
+        uses: codecov/codecov-action@v4.6.0
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           xcode: true
@@ -143,7 +143,7 @@ jobs:
       - name: ${{ matrix.name }}
         run: xcodebuild test -scheme "Blade-Package" -destination "${{ matrix.destination }}" clean -enableCodeCoverage YES ${{ matrix.params }} -resultBundlePath "test_output/${{ matrix.name }}.xcresult" || exit 1
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.5.0
+        uses: codecov/codecov-action@v4.6.0
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           xcode: true
