@@ -148,10 +148,14 @@ jobs:
             runsOn: macos-15
     steps:
       - uses: actions/checkout@v4
+      - name: Toolchain versions
+        run: |
+          swift --version
+          xcodebuild -version
       - name: ${{ matrix.name }}
         run: |
-          swift build -c release --target "Blade"
-          swift build -c release --target "BladeTCA"
+          swift build --target "Blade"
+          swift build --target "BladeTCA"
 
   merge-test-reports:
     needs: [iOS, macOS, watchOS, tvOS]
