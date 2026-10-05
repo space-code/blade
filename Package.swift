@@ -17,7 +17,7 @@ let package = Package(
         .library(name: "BladeTCA", targets: ["BladeTCA"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/pointfreeco/swift-composable-architecture.git", .upToNextMajor(from: "1.5.5")),
+        .package(url: "https://github.com/pointfreeco/swift-composable-architecture.git", .upToNextMajor(from: "1.26.2")),
     ],
     targets: [
         .target(name: "Blade"),

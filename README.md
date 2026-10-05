@@ -157,8 +157,8 @@ struct SomeView: View {
 ## Requirements
 
 - iOS 16.0+ / macOS 13.0+ / tvOS 16.0+ / watchOS 9.0+ / visionOS 1.0+
-- Xcode 15.3+ (Swift 5.10+); Swift 6 language mode on Swift 6.0+
-- Swift 5.10+ (TCA 1.26.2 is used on Swift 6.1+, older TCA is resolved automatically on 5.10 and 6.0)
+- Xcode 16.3+
+- Swift 6.1+ (Swift 6 language mode, `swift-composable-architecture` 1.26.2+)
 
 ## Installation
 ### Swift Package Manager

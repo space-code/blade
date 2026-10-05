@@ -34,3 +34,7 @@ public struct CursorPaginatorState<State: Equatable & Identifiable & Sendable>: 
         self.id = id
     }
 }
+
+// MARK: - Sendable
+
+extension CursorPaginatorState: Sendable where State.ID: Sendable {}
