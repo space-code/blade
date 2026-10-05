@@ -38,9 +38,9 @@ jobs:
             runsOn: macos-15
             name: "macOS 15, Xcode 16.4, Swift 6.1"
             params: "-skipMacroValidation"
-          - xcode: "Xcode_26.0"
+          - xcode: "Xcode_26.5"
             runsOn: macos-26
-            name: "macOS 26, Xcode 26.0, Swift 6.2"
+            name: "macOS 26, Xcode 26.5"
             params: "-skipMacroValidation"
     steps:
       - uses: actions/checkout@v4
@@ -71,6 +71,11 @@ jobs:
             xcode: "Xcode_16.4"
             runsOn: macos-15
             params: "-skipMacroValidation"
+          - destination: "platform=iOS Simulator,name=iPhone 17 Pro"
+            name: "iOS 26"
+            xcode: "Xcode_26.5"
+            runsOn: macos-26
+            params: "-skipMacroValidation"
     steps:
       - uses: actions/checkout@v4
       - name: ${{ matrix.name }}
@@ -93,6 +98,11 @@ jobs:
             name: "tvOS 18"
             xcode: "Xcode_16.4"
             runsOn: macos-15
+            params: "-skipMacroValidation"
+          - destination: "platform=tvOS Simulator,name=Apple TV"
+            name: "tvOS 26"
+            xcode: "Xcode_26.5"
+            runsOn: macos-26
             params: "-skipMacroValidation"
     steps:
       - uses: actions/checkout@v4
@@ -123,6 +133,11 @@ jobs:
             xcode: "Xcode_16.4"
             runsOn: macos-15
             params: "-skipMacroValidation"
+          - destination: "platform=watchOS Simulator,name=Apple Watch Series 11 (46mm)"
+            name: "watchOS 26"
+            xcode: "Xcode_26.5"
+            runsOn: macos-26
+            params: "-skipMacroValidation"
     steps:
       - uses: actions/checkout@v4
       - name: ${{ matrix.name }}
@@ -151,7 +166,7 @@ jobs:
             xcode: "Xcode_16.4"
             runsOn: macos-15
           - name: "Xcode 26"
-            xcode: "Xcode_26.0"
+            xcode: "Xcode_26.5"
             runsOn: macos-26
     steps:
       - uses: actions/checkout@v4
