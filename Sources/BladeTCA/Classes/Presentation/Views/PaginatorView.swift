@@ -3,17 +3,16 @@
 // Copyright © 2024 Space Code. All rights reserved.
 //
 
-import BladeTCA
 import ComposableArchitecture
 import SwiftUI
 
 // MARK: - PaginatorView
 
 public struct PaginatorView<
-    State: Equatable & Identifiable,
-    Action: Equatable,
-    PositionType: Equatable,
-    Request: Equatable,
+    State: Equatable & Identifiable & Sendable,
+    Action: Equatable & Sendable,
+    PositionType: Equatable & Sendable,
+    Request: Equatable & Sendable,
     Header: View,
     Body: View,
     Footer: View,

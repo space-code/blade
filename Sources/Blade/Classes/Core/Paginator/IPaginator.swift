@@ -6,9 +6,9 @@
 import Foundation
 
 /// Protocol defining the interface for a paginator that manages asynchronous loading of paginated data.
-public protocol IPaginator<Element> {
+public protocol IPaginator<Element>: Sendable {
     /// The type of elements the paginator is handling, which must conform to `Decodable` & `Equatable`.
-    associatedtype Element: Decodable & Equatable
+    associatedtype Element: Decodable & Equatable & Sendable
 
     /// Asynchronously refreshes the paginator, resetting to the first page and fetching new data.
     ///

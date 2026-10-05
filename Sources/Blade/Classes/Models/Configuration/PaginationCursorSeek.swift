@@ -16,3 +16,7 @@ public struct PaginationCursorSeek<T: Identifiable> {
         self.id = id
     }
 }
+
+// MARK: - Sendable
+
+extension PaginationCursorSeek: Sendable where T.ID: Sendable {}

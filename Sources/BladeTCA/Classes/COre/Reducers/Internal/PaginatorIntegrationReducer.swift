@@ -8,11 +8,11 @@ import ComposableArchitecture
 
 struct PaginatorIntegrationReducer<
     Parent: Reducer,
-    State: Equatable & Identifiable,
-    Action: Equatable,
-    PositionType: Equatable,
-    Request: Equatable
->: Reducer {
+    State: Equatable & Identifiable & Sendable,
+    Action: Equatable & Sendable,
+    PositionType: Equatable & Sendable,
+    Request: Equatable & Sendable
+>: Reducer where Parent.State: Sendable {
     // MARK: Properties
 
     let parent: Parent
@@ -40,6 +40,9 @@ struct PaginatorIntegrationReducer<
             else {
                 return parent.reduce(into: &state, action: action)
             }
+
+            let childAction = childAction
+            let loadPage = loadPage
 
             return .run { [state] send in
                 await send(childAction.embed(.response(TaskResult { try await loadPage(pageRequest, state) })))

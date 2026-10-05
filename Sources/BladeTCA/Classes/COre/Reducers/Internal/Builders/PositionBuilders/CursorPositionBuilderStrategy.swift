@@ -6,7 +6,7 @@
 import Foundation
 
 /// A cursor-based paginator position builder.
-struct CursorPositionBuilderStrategy<State: Equatable & Identifiable>: IPositionBuilderStrategy {
+struct CursorPositionBuilderStrategy<State: Equatable & Identifiable & Sendable>: IPositionBuilderStrategy where State.ID: Sendable {
     /// Creates a next position.
     ///
     /// - Parameter state: The current state of the paginator.

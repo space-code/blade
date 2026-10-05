@@ -6,7 +6,7 @@
 import ComposableArchitecture
 
 /// Represents the state of a paginator for cursor-based pagination.
-public struct CursorPaginatorState<State: Equatable & Identifiable>: Equatable, IPaginatorState {
+public struct CursorPaginatorState<State: Equatable & Identifiable & Sendable>: Equatable, IPaginatorState {
     // MARK: Properties
 
     /// The array of identifiable items managed by the paginator.

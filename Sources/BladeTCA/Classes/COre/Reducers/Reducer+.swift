@@ -9,7 +9,7 @@ import ComposableArchitecture
 // MARK: - Reducer Extension for Paginator Integration
 
 /// An extension on the `Reducer` type providing a method for integrating a paginator into a Composable Architecture.
-public extension Reducer {
+public extension Reducer where State: Sendable {
     /// Integrates a paginator into a Composable Architecture, facilitating paginated data loading.
     ///
     /// - Parameters:
@@ -19,7 +19,7 @@ public extension Reducer {
     ///   - loadPage: A closure to load a page of items based on the provided `LimitPageRequest` and current state.
     ///
     /// - Returns: A reducer for integrating the paginator functionality.
-    func paginator<ItemState: Equatable & Identifiable>(
+    func paginator<ItemState: Equatable & Identifiable & Sendable>(
         limit: Int = 20,
         state: WritableKeyPath<State, PaginatorState<ItemState, Int>>,
         action: AnyCasePath<Action, PaginatorAction<ItemState, Never, OffsetPaginationRequest>>,
@@ -43,11 +43,11 @@ public extension Reducer {
     ///   - loadPage: A closure to load a page of items based on the provided `CursorPaginationRequest` and current state.
     ///
     /// - Returns: A reducer for integrating the paginator functionality.
-    func paginator<ItemState: Equatable & Identifiable>(
+    func paginator<ItemState: Equatable & Identifiable & Sendable>(
         state: WritableKeyPath<State, PaginatorState<ItemState, ItemState.ID>>,
         action: AnyCasePath<Action, PaginatorAction<ItemState, Never, CursorPaginationRequest<ItemState>>>,
         loadPage: @Sendable @escaping (CursorPaginationRequest<ItemState>, State) async throws -> Page<ItemState>
-    ) -> some Reducer<State, Action> {
+    ) -> some Reducer<State, Action> where ItemState.ID: Sendable {
         PaginatorIntegrationReducer(
             parent: self,
             childState: state,

@@ -7,7 +7,7 @@ import Foundation
 
 // MARK: - CursorSeekStrategy
 
-actor CursorSeekStrategy<Element: Decodable & Equatable & Identifiable> {
+actor CursorSeekStrategy<Element: Decodable & Equatable & Identifiable & Sendable> where Element.ID: Sendable {
     // MARK: Properties
 
     private let configuration: PaginationCursorSeek<Element>

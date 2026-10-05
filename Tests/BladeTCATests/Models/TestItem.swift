@@ -21,7 +21,7 @@ struct TestItem: Equatable, Identifiable {
 
 // MARK: - UUID + Identifiable
 
-extension UUID: Identifiable {
+extension UUID: @retroactive Identifiable {
     public var id: Self {
         self
     }
