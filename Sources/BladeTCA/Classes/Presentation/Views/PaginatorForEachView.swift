@@ -7,11 +7,11 @@ import ComposableArchitecture
 import SwiftUI
 
 public struct PaginatorForEachView<
-    State: Equatable & Identifiable,
-    Action: Equatable,
+    State: Equatable & Identifiable & Sendable,
+    Action: Equatable & Sendable,
     Body: View,
-    PositionType: Equatable,
-    Request: Equatable
+    PositionType: Equatable & Sendable,
+    Request: Equatable & Sendable
 >: View {
     // MARK: Types
 

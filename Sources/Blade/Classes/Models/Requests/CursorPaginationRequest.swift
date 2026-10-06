@@ -16,3 +16,7 @@ public struct CursorPaginationRequest<T: Identifiable>: Equatable {
         self.id = id
     }
 }
+
+// MARK: - Sendable
+
+extension CursorPaginationRequest: Sendable where T.ID: Sendable {}

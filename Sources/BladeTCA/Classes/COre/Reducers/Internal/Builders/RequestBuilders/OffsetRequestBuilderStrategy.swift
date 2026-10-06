@@ -7,7 +7,7 @@ import Blade
 import Foundation
 
 /// A request builder strategy for offset-based pagination.
-struct OffsetRequestBuilderStrategy<State: Equatable & Identifiable>: IRequestBuilderStrategy {
+struct OffsetRequestBuilderStrategy<State: Equatable & Identifiable & Sendable>: IRequestBuilderStrategy {
     // MARK: Properties
 
     /// The maximum number of items to be included in the pagination request.

@@ -5,9 +5,9 @@
 
 import Foundation
 
-public protocol ICursorPageLoader<Element> {
+public protocol ICursorPageLoader<Element>: Sendable {
     /// The type of elements the paginator is handling, which must conform to `Decodable` & `Equatable`.
-    associatedtype Element: Decodable & Equatable & Identifiable
+    associatedtype Element: Decodable & Equatable & Identifiable & Sendable where Element.ID: Sendable
 
     /// Loads a page of elements based on the provided pagination request asynchronously.
     ///

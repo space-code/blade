@@ -15,9 +15,9 @@ import Foundation
 ///   - State: The type of state managed by the paginator.
 ///   - Action: The type of actions that can be associated with the paginator.
 public enum PaginatorAction<
-    State: Equatable & Identifiable,
-    Action: Equatable,
-    Request: Equatable
+    State: Equatable & Identifiable & Sendable,
+    Action: Equatable & Sendable,
+    Request: Equatable & Sendable
 >: Equatable {
     // MARK: Action Cases
 
@@ -30,3 +30,7 @@ public enum PaginatorAction<
     /// Represents the response to a page request, containing the result of the operation.
     case response(TaskResult<Page<State>>)
 }
+
+// MARK: - Sendable
+
+extension PaginatorAction: Sendable where State.ID: Sendable {}

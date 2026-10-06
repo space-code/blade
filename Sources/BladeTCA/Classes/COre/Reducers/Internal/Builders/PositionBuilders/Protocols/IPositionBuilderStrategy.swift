@@ -6,9 +6,9 @@
 import Foundation
 
 /// This protocol defines the interface for a strategy used in building positions based on a given state.
-protocol IPositionBuilderStrategy<State, PositionType> {
+protocol IPositionBuilderStrategy<State, PositionType>: Sendable {
     associatedtype State: Equatable
-    associatedtype PositionType: Equatable
+    associatedtype PositionType: Equatable & Sendable
 
     /// Takes a state as input and returns the corresponding position.
     ///

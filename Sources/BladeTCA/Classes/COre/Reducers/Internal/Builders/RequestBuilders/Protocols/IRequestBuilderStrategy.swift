@@ -6,12 +6,12 @@
 import Foundation
 
 /// A protocol for defining request builder strategies in a paginator.
-protocol IRequestBuilderStrategy<State, Request> {
+protocol IRequestBuilderStrategy<State, Request>: Sendable {
     /// The state type associated with the strategy, conforming to Equatable.
     associatedtype State: Equatable
 
     /// The request type associated with the strategy, conforming to Equatable.
-    associatedtype Request: Equatable
+    associatedtype Request: Equatable & Sendable
 
     /// Makes a request.
     ///

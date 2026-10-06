@@ -18,3 +18,7 @@ public struct PaginationLimitOffset {
         self.limit = limit
     }
 }
+
+// MARK: - Sendable
+
+extension PaginationLimitOffset: Sendable {}

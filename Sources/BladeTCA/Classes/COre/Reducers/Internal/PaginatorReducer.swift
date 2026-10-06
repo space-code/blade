@@ -7,10 +7,10 @@ import Blade
 import ComposableArchitecture
 
 struct PaginatorReducer<
-    State: Equatable & Identifiable,
-    Action: Equatable,
-    PositionType: Equatable,
-    Request: Equatable
+    State: Equatable & Identifiable & Sendable,
+    Action: Equatable & Sendable,
+    PositionType: Equatable & Sendable,
+    Request: Equatable & Sendable
 >: Reducer {
     // MARK: Types
 

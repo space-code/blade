@@ -6,7 +6,7 @@
 import Blade
 
 /// A request builder strategy for cursor-based pagination.
-struct CursorRequestBuilderStrategy<State: Equatable & Identifiable>: IRequestBuilderStrategy {
+struct CursorRequestBuilderStrategy<State: Equatable & Identifiable & Sendable>: IRequestBuilderStrategy where State.ID: Sendable {
     // MARK: IRequestBuilderStrategy
 
     /// Constructs a pagination request based on the provided state.

@@ -29,3 +29,7 @@ public struct OffsetPaginationRequest: Equatable {
         self.offset = offset
     }
 }
+
+// MARK: - Sendable
+
+extension OffsetPaginationRequest: Sendable {}

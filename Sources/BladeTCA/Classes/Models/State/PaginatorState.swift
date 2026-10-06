@@ -9,7 +9,7 @@ import Foundation
 // MARK: - OffsetPaginatorState
 
 /// Represents the state of a paginator for cursor-based pagination.
-public struct PaginatorState<State: Equatable & Identifiable, T: Equatable>: Equatable, IPaginatorState {
+public struct PaginatorState<State: Equatable & Identifiable & Sendable, T: Equatable & Sendable>: Equatable, IPaginatorState {
     // MARK: Properties
 
     /// The array of identifiable items managed by the paginator.
@@ -37,3 +37,7 @@ public struct PaginatorState<State: Equatable & Identifiable, T: Equatable>: Equ
         self.position = position
     }
 }
+
+// MARK: - Sendable
+
+extension PaginatorState: Sendable where State.ID: Sendable {}

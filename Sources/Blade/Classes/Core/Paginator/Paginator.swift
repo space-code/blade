@@ -8,7 +8,7 @@ import Foundation
 // MARK: - Paginator
 
 /// Paginator is an actor responsible for paginating and loading data using a provided paginator service.
-public actor Paginator<T: Decodable & Equatable> {
+public actor Paginator<T: Decodable & Equatable & Sendable> {
     // MARK: Types
 
     /// Enum representing errors that may occur during pagination.
@@ -48,7 +48,7 @@ public actor Paginator<T: Decodable & Equatable> {
     public init(
         configuration: PaginationCursorSeek<T>,
         cursorPageLoader: any ICursorPageLoader<T>
-    ) where T: Identifiable {
+    ) where T: Identifiable, T.ID: Sendable {
         paginationStrategy = CursorSeekStrategy(
             configuration: configuration,
             pageLoader: cursorPageLoader

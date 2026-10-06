@@ -28,3 +28,7 @@ public struct Page<T: Equatable>: Equatable {
         self.hasMoreData = hasMoreData
     }
 }
+
+// MARK: - Sendable
+
+extension Page: Sendable where T: Sendable {}

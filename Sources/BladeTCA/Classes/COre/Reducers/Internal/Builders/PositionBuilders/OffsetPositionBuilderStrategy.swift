@@ -6,7 +6,7 @@
 import Blade
 
 /// A offset-based paginator position builder.
-struct OffsetPositionBuilderStrategy<State: Equatable & Identifiable>: IPositionBuilderStrategy {
+struct OffsetPositionBuilderStrategy<State: Equatable & Identifiable & Sendable>: IPositionBuilderStrategy {
     /// Creates a next position.
     ///
     /// - Parameter state: The current state of the paginator.
